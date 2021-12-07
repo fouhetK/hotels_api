@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.InvalidObjectException;
 import java.util.NoSuchElementException;
 
@@ -20,9 +19,8 @@ public class ResaAPI {
     private ResaService rs;
 
     @GetMapping(value = "", produces = "application/json")
-    public Iterable<ResaEntity> getAll(HttpServletRequest request) {
-        String search = request.getParameter("search");
-        return rs.getAll();
+    public Iterable<ResaEntity> getAll(@RequestParam(name = "client", required = false, defaultValue = "0") int client) {
+        return rs.getAll(client);
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
@@ -31,7 +29,7 @@ public class ResaAPI {
             ResaEntity resa = rs.getById(id);
             return ResponseEntity.ok(resa);
         } catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "Patient introuvable" );
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "Réservation introuvable" );
         }
     }
 
@@ -41,10 +39,8 @@ public class ResaAPI {
             rs.add(resa);
 
             return ResponseEntity.ok(resa);
-        } catch ( InvalidObjectException e ){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST , e.getMessage() );
         } catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST , e.getMessage() );
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST , e.getMessage(), e);
         }
     }
 

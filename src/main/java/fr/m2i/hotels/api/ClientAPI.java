@@ -20,8 +20,7 @@ public class ClientAPI {
     private ClientService cs;
 
     @GetMapping(value = "", produces = "application/json")
-    public Iterable<ClientEntity> getAll(HttpServletRequest request) {
-        String search = request.getParameter("search");
+    public Iterable<ClientEntity> getAll() {
         return cs.getAll();
     }
 

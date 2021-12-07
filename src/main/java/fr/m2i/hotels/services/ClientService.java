@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.InvalidObjectException;
+import java.util.regex.Pattern;
 
 @Service
 public class ClientService {
@@ -14,8 +15,15 @@ public class ClientService {
     private ClientRepository cr;
 
     private void checkClient(ClientEntity client) throws InvalidObjectException {
-        if (client.getNomComplet().length() <= 2)
-            throw new InvalidObjectException("Nom invalide");
+        String regexEmail = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+                + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+        String regexTel = "^(?:(?:\\+|00)33|0)\\s*[1-9](?:[\\s.-]*\\d{2}){4}$";
+
+        if (!Pattern.compile(regexEmail).matcher(client.getEmail()).matches()) {
+            throw new InvalidObjectException("Email de l'hotel invalide");
+        } else if (!Pattern.compile(regexTel).matcher(client.getTelephone()).matches()) {
+            throw new InvalidObjectException("Téléphone de l'hotel invalide");
+        }
     }
 
     public ClientEntity getById(int id){

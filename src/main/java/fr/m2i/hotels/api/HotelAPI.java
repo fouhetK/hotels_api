@@ -20,8 +20,7 @@ public class HotelAPI {
     private HotelService hs;
 
     @GetMapping(value = "", produces = "application/json")
-    public Iterable<HotelEntity> getAll(HttpServletRequest request) {
-        String search = request.getParameter("search");
+    public Iterable<HotelEntity> getAll() {
         return hs.getAll();
     }
 

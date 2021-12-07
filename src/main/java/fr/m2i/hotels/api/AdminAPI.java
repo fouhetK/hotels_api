@@ -5,14 +5,11 @@ import fr.m2i.hotels.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.InvalidObjectException;
-import java.net.URI;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -26,8 +23,7 @@ public class AdminAPI {
     private PasswordEncoder pwdEncoder;
 
     @GetMapping(value = "", produces = "application/json")
-    public Iterable<AdminEntity> getAll(HttpServletRequest request) {
-        String search = request.getParameter("search");
+    public Iterable<AdminEntity> getAll() {
         return as.getAll();
     }
 

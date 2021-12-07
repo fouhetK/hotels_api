@@ -18,9 +18,7 @@ public class HotelsApplication {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                //registry.addMapping("/**").allowedOrigins("http://localhost:4200"); //autorise l'accès depuis localhost:4200
                 registry.addMapping("/**").allowedOrigins("*").allowedMethods("*");
-                // * dans allow origins : çad autoriser toutes les machines
             }
         };
     }
