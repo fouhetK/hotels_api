@@ -97,4 +97,17 @@ public class HotelEntity {
     public int hashCode() {
         return Objects.hash(id, nom, etoiles, adresse, telephone, email, ville);
     }
+
+    @Override
+    public String toString() {
+        return "HotelEntity{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", etoiles=" + etoiles +
+                ", adresse='" + adresse + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", email='" + email + '\'' +
+                ", ville='" + ville + '\'' +
+                '}';
+    }
 }
