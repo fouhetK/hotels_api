@@ -30,7 +30,7 @@ public class HotelAPI {
             HotelEntity hotel = hs.getById(id);
             return ResponseEntity.ok(hotel);
         } catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "Patient introuvable" );
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "Hotel introuvable" );
         }
     }
 
@@ -50,7 +50,7 @@ public class HotelAPI {
         try{
             hs.update(id, hotel);
         }catch ( NoSuchElementException e ){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "Admin introuvable" );
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "Hotel introuvable" );
 
         }catch ( InvalidObjectException e ){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST , e.getMessage() );
@@ -61,8 +61,11 @@ public class HotelAPI {
     public void deletePatient(@PathVariable("id") int id) {
         try {
             hs.delete(id);
+        }catch ( NoSuchElementException e ){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "Hotel introuvable" );
+
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Admin introuvable");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "L'hotel a des réservations en cours");
         }
     }
 }

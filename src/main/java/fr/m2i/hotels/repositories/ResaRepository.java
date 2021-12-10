@@ -9,9 +9,10 @@ public interface ResaRepository  extends CrudRepository<ResaEntity, Integer> {
 
     public Iterable<ResaEntity> findAllByClient_Id(int id);
 
-    public Iterable<ResaEntity> findAllByNumChambreAndHotel_IdAndDatedebBetween(int numChambre, int hotel, Date datedeb, Date datefin);
-    public Iterable<ResaEntity> findAllByNumChambreAndHotel_IdAndDatefinBetween(int numChambre, int hotel, Date datedeb, Date datefin);
+    public Iterable<ResaEntity> findAllByIdNotAndNumChambreAndHotel_IdAndDatedebBetween(int id, int numChambre, int hotel, Date datedeb, Date datefin);
+    public Iterable<ResaEntity> findAllByIdNotAndNumChambreAndHotel_IdAndDatefinBetween(int id, int numChambre, int hotel, Date datedeb, Date datefin);
+    public Iterable<ResaEntity> findAllByIdNotAndNumChambreAndHotel_IdAndDatedebBeforeAndDatefinAfter(int id, int numChambre, int hotel, Date date1, Date date2);
 
-    public Iterable<ResaEntity> findAllByClient_IdAndDatedebBetween(int id, Date datedeb, Date datefin);
-    public Iterable<ResaEntity> findAllByClient_IdAndDatefinBetween(int id, Date datedeb, Date datefin);
+    public Iterable<ResaEntity> findAllByIdNotAndClient_IdAndDatedebBetween(int id, int id_client, Date datedeb, Date datefin);
+    public Iterable<ResaEntity> findAllByIdNotAndClient_IdAndDatefinBetween(int id, int id_client, Date datedeb, Date datefin);
 }

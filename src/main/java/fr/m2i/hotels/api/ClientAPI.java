@@ -30,7 +30,7 @@ public class ClientAPI {
             ClientEntity client = cs.getById(id);
             return ResponseEntity.ok(client);
         } catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "Patient introuvable" );
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "Client introuvable" );
         }
     }
 
@@ -50,7 +50,7 @@ public class ClientAPI {
         try{
             cs.update(id, client);
         }catch ( NoSuchElementException e ){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "Admin introuvable" );
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "Client introuvable" );
 
         }catch ( InvalidObjectException e ){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST , e.getMessage() );
@@ -61,8 +61,11 @@ public class ClientAPI {
     public void deletePatient(@PathVariable("id") int id) {
         try {
             cs.delete(id);
+        }catch ( NoSuchElementException e ){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "Client introuvable" );
+
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Admin introuvable");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Le client a des réservations en cours");
         }
     }
 }

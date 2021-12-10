@@ -49,7 +49,7 @@ public class ResaAPI {
         try{
             rs.update(id, resa);
         }catch ( NoSuchElementException e ){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "Admin introuvable" );
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "Réservation introuvable" );
 
         }catch ( InvalidObjectException e ){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST , e.getMessage() );
@@ -61,7 +61,7 @@ public class ResaAPI {
         try {
             rs.delete(id);
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Admin introuvable");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Réservation introuvable");
         }
     }
 }

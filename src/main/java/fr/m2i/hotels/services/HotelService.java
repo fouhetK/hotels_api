@@ -18,8 +18,11 @@ public class HotelService {
         String regexEmail = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
                 + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         String regexTel = "^(?:(?:\\+|00)33|0)\\s*[1-9](?:[\\s.-]*\\d{2}){4}$";
-        
-        if (hotel.getEtoiles() <= 0 || hotel.getEtoiles() >= 6) {
+
+        if (hotel.getNom().length() < 2){
+            throw new InvalidObjectException("Nom de l'hotel invalide");
+        }
+        else if (hotel.getEtoiles() <= 0 || hotel.getEtoiles() >= 6) {
             throw new InvalidObjectException("Nombre d'étoiles invalide");
         } else if (!Pattern.compile(regexEmail).matcher(hotel.getEmail()).matches()) {
             throw new InvalidObjectException("Email de l'hotel invalide");

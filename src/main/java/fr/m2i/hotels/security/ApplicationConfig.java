@@ -52,4 +52,23 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter {
         }
     }
 
+    @Configuration
+    @Order(2)
+    public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            //formLogin = utiliser un formulaire d'authetification - loginPage : chemin de l'authentification
+            http.formLogin().loginPage("/login").defaultSuccessUrl("/");
+            // Autoriser un accès anonyme sur les routes /login et /css/**
+            http.authorizeRequests().antMatchers("/login" , "/css/**" , "/images/**" , "/images/uploads/**" , "/api/login" ).permitAll();
+
+            // Tous les utilisateurs qui ne sont pas mentionnées en haut devrait s'authentifier
+            http.authorizeRequests().anyRequest().authenticated();
+
+            // désactiver la protection csrf
+            http.csrf().disable();
+        }
+    }
+
 }

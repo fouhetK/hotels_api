@@ -30,22 +30,17 @@ public class ResaService {
             throw new InvalidObjectException("Vous devez selectionner un numéro de chambre");
 
         // check if there is already a reservation for the same chamber and hotel that start between the two new date
-        Iterable<ResaEntity> tmp = rr.findAllByNumChambreAndHotel_IdAndDatedebBetween(resa.getNumChambre(), resa.getHotel().getId(), resa.getDatedeb(), resa.getDatefin());
+        Iterable<ResaEntity> tmp = rr.findAllByIdNotAndNumChambreAndHotel_IdAndDatedebBetween(resa.getId(), resa.getNumChambre(), resa.getHotel().getId(), resa.getDatedeb(), resa.getDatefin());
         if (tmp.iterator().hasNext())
             throw new InvalidObjectException( "Une autre réservation existe déja pour la chambre n°" + resa.getNumChambre() + " de l'hotel " + resa.getHotel().getNom() );
         // check if there is already a reservation for the same chamber and hotel that end between the two new date
-        tmp = rr.findAllByNumChambreAndHotel_IdAndDatefinBetween(resa.getNumChambre(), resa.getHotel().getId(), resa.getDatedeb(), resa.getDatefin());
+        tmp = rr.findAllByIdNotAndNumChambreAndHotel_IdAndDatefinBetween(resa.getId(), resa.getNumChambre(), resa.getHotel().getId(), resa.getDatedeb(), resa.getDatefin());
         if (tmp.iterator().hasNext())
             throw new InvalidObjectException( "Une autre réservation existe déja pour la chambre n°" + resa.getNumChambre() + " de l'hotel " + resa.getHotel().getNom() );
-
-        // check if client already have a reservation that start between the two new date
-        tmp = rr.findAllByClient_IdAndDatedebBetween(resa.getClient().getId(), resa.getDatedeb(), resa.getDatefin());
+        // check if there is already a reservation for the same chamber and hotel that suround the new date
+        tmp = rr.findAllByIdNotAndNumChambreAndHotel_IdAndDatedebBeforeAndDatefinAfter(resa.getId(), resa.getNumChambre(), resa.getHotel().getId(), resa.getDatedeb(), resa.getDatedeb());
         if (tmp.iterator().hasNext())
-            throw new InvalidObjectException( "Le client " + resa.getClient().getNomComplet() + " a déja une réservation pour cette date" );
-        // check if client already have a reservation that end between the two new date
-        tmp = rr.findAllByClient_IdAndDatefinBetween(resa.getClient().getId(), resa.getDatedeb(), resa.getDatefin());
-        if (tmp.iterator().hasNext())
-            throw new InvalidObjectException( "Le client " + resa.getClient().getNomComplet() + " a déja une réservation pour cette date" );
+            throw new InvalidObjectException( "Une autre réservation existe déja pour la chambre n°" + resa.getNumChambre() + " de l'hotel " + resa.getHotel().getNom() );
 
     }
 
@@ -61,6 +56,8 @@ public class ResaService {
     }
 
     public void update(int id, ResaEntity resa) throws InvalidObjectException, ResponseStatusException {
+        System.out.println(id);
+        System.out.println(resa.getId());
         checkResa(resa);
         ResaEntity toUpdate = this.getById(id);
 

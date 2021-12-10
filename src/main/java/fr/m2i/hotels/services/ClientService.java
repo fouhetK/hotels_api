@@ -19,10 +19,12 @@ public class ClientService {
                 + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         String regexTel = "^(?:(?:\\+|00)33|0)\\s*[1-9](?:[\\s.-]*\\d{2}){4}$";
 
-        if (!Pattern.compile(regexEmail).matcher(client.getEmail()).matches()) {
-            throw new InvalidObjectException("Email de l'hotel invalide");
+        if (client.getNomComplet().length() < 2){
+            throw new InvalidObjectException("Nom complet du client invalide");
+        } else if (!Pattern.compile(regexEmail).matcher(client.getEmail()).matches()) {
+            throw new InvalidObjectException("Email du client invalide");
         } else if (!Pattern.compile(regexTel).matcher(client.getTelephone()).matches()) {
-            throw new InvalidObjectException("Téléphone de l'hotel invalide");
+            throw new InvalidObjectException("Téléphone du client invalide");
         }
     }
 

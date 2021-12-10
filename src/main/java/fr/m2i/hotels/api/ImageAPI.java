@@ -39,7 +39,7 @@ public class ImageAPI {
             ImageEntity image = is.getById(id);
             return ResponseEntity.ok(image);
         } catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "Réservation introuvable" );
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "Image introuvable" );
         }
     }
 
